@@ -1,4 +1,4 @@
-# dxfHelper
+# dxf_reader
 
 在qt中用于解析dxf文件
 
