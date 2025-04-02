@@ -1,7 +1,11 @@
 # dxfHelper
+
 在qt中用于解析dxf文件
+
 将dxflib中不同图形的实体抽离出同一个父类，方便多态使用
-为父类添加Attibute信息，可通过不同实体的指针，得的各自对应的layer，linetype等信息
+
+为父类添加Attibute信息，可通过不同实体的指针，得的各自对应的layer，linetype等信
+
 将polyline及spline的顶点数据等，放在多段线同一个结构体中
 
 
