@@ -16,9 +16,9 @@
 #endif
 
 template<typename EntityType>
-void addEntity(std::vector<std::unique_ptr<DL_EntityData>>& entities,
+void addEntity(std::vector<std::shared_ptr<DL_EntityData>>& entities,
                const EntityType& data, const DL_Attributes& attribute) {
-    auto entity = MAKE_UNIQUE<EntityType>(data);
+    auto entity = std::make_shared<EntityType>(data);
     entity->attribute = attribute;
     entities.push_back(std::move(entity));
 }

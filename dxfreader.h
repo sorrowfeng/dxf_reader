@@ -84,18 +84,18 @@ public:
     void finalizeSpline();
 
     // 返回只读视图
-    const std::vector<std::unique_ptr<DL_EntityData>>& getAllEntities() const {
+    const std::vector<std::shared_ptr<DL_EntityData>>& getAllEntities() const {
         return allEntities;
     }
 
 
 private:
-    std::vector<std::unique_ptr<DL_EntityData>> allEntities; // 使用智能指针自动管理内存
+    std::vector<std::shared_ptr<DL_EntityData>> allEntities; // 使用智能指针自动管理内存
 
     // 存储块、层和线型信息
-    std::unordered_map<std::string, std::unique_ptr<DL_BlockData>> blocks;       // 块名称 -> 块数据
-    std::unordered_map<std::string, std::unique_ptr<DL_LayerData>> layers;       // 层名称 -> 层数据
-    std::unordered_map<std::string, std::unique_ptr<DL_LinetypeData>> linetypes; // 线型名称 -> 线型数据
+    std::unordered_map<std::string, std::shared_ptr<DL_BlockData>> blocks;       // 块名称 -> 块数据
+    std::unordered_map<std::string, std::shared_ptr<DL_LayerData>> layers;       // 层名称 -> 层数据
+    std::unordered_map<std::string, std::shared_ptr<DL_LinetypeData>> linetypes; // 线型名称 -> 线型数据
 
 
     // 当前多段线状态

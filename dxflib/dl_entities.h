@@ -8,7 +8,7 @@
 ** the Free Software Foundation; either version 2 of the License, or
 ** (at your option) any later version.
 **
-** Licensees holding valid dxflib Professional Edition licenses may use 
+** Licensees holding valid dxflib Professional Edition licenses may use
 ** this file in accordance with the dxflib Commercial License
 ** Agreement provided with the Software.
 **
@@ -37,13 +37,12 @@
  */
 struct DXFLIB_EXPORT DL_LayerData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_LayerData(const std::string& name,
                  int flags, bool off = false) :
-        name(name), flags(flags), off(off) {
-    }
+    name(name), flags(flags), off(off) {}
 
     /** Layer name. */
     std::string name;
@@ -60,9 +59,9 @@ struct DXFLIB_EXPORT DL_LayerData {
  */
 struct DXFLIB_EXPORT DL_BlockData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_BlockData(const std::string& bName,
                  int bFlags,
                  double bbpx, double bbpy, double bbpz) {
@@ -91,9 +90,9 @@ struct DXFLIB_EXPORT DL_BlockData {
  */
 struct DXFLIB_EXPORT DL_LinetypeData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_LinetypeData(
         const std::string& name,
         const std::string& description,
@@ -107,8 +106,7 @@ struct DXFLIB_EXPORT DL_LinetypeData {
         flags(flags),
         numberOfDashes(numberOfDashes),
         patternLength(patternLength),
-        pattern(pattern)
-    {}
+    pattern(pattern) {}
 
     /** Linetype name */
     std::string name;
@@ -131,9 +129,9 @@ struct DXFLIB_EXPORT DL_LinetypeData {
  */
 struct DXFLIB_EXPORT DL_StyleData {
     /**
-     * Constructor
-     * Parameters: see member variables.
-     */
+   * Constructor
+   * Parameters: see member variables.
+   */
     DL_StyleData(
         const std::string& name,
         int flags,
@@ -155,8 +153,7 @@ struct DXFLIB_EXPORT DL_StyleData {
         primaryFontFile(primaryFontFile),
         bigFontFile(bigFontFile),
         bold(false),
-        italic(false) {
-    }
+    italic(false) {}
 
     bool operator==(const DL_StyleData& other) {
         // ignore lastHeightUsed:
@@ -197,7 +194,7 @@ struct DXFLIB_EXPORT DL_StyleData {
 /**
  * Entity types enumeration.
  */
-enum DL_EntityType {
+enum class DL_EntityType {
     TYPE_DL_ENTITY_POINT,      // 点
     TYPE_DL_ENTITY_LINE,       // 直线
     TYPE_DL_ENTITY_XLINE,      // 构造线
@@ -229,21 +226,21 @@ enum DL_EntityType {
  */
 struct DXFLIB_EXPORT DL_EntityData {
     /**
-     * Constructor.
-     * @param type The entity type enum value
-     */
+   * Constructor.
+   * @param type The entity type enum value
+   */
     DL_EntityData(DL_EntityType type) : entityType(type) {}
 
     virtual ~DL_EntityData() {}
 
     /**
-     * Returns the entity type enum value.
-     */
+   * Returns the entity type enum value.
+   */
     virtual DL_EntityType type() const { return entityType; }
 
     /**
-     * Entity type identifier.
-     */
+   * Entity type identifier.
+   */
     DL_EntityType entityType;
 
     DL_Attributes attribute;
@@ -254,11 +251,11 @@ struct DXFLIB_EXPORT DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_PointData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_PointData(double px=0.0, double py=0.0, double pz=0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_POINT) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_POINT) {
         x = px;
         y = py;
         z = pz;
@@ -279,12 +276,12 @@ struct DXFLIB_EXPORT DL_PointData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_LineData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_LineData(double lx1, double ly1, double lz1,
                 double lx2, double ly2, double lz2) :
-        DL_EntityData(TYPE_DL_ENTITY_LINE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_LINE) {
         x1 = lx1;
         y1 = ly1;
         z1 = lz1;
@@ -314,15 +311,14 @@ struct DXFLIB_EXPORT DL_LineData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_XLineData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_XLineData(double bx, double by, double bz,
                 double dx, double dy, double dz) :
-        DL_EntityData(TYPE_DL_ENTITY_XLINE),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_XLINE),
         bx(bx), by(by), bz(bz),
-        dx(dx), dy(dy), dz(dz) {
-    }
+    dx(dx), dy(dy), dz(dz) {}
 
     /*! X base point. */
     double bx;
@@ -344,15 +340,14 @@ struct DXFLIB_EXPORT DL_XLineData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_RayData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_RayData(double bx, double by, double bz,
                double dx, double dy, double dz) :
-        DL_EntityData(TYPE_DL_ENTITY_RAY),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_RAY),
         bx(bx), by(by), bz(bz),
-        dx(dx), dy(dy), dz(dz) {
-    }
+    dx(dx), dy(dy), dz(dz) {}
 
     /*! X base point. */
     double bx;
@@ -376,13 +371,13 @@ struct DXFLIB_EXPORT DL_RayData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_ArcData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_ArcData(double acx, double acy, double acz,
                double aRadius,
                double aAngle1, double aAngle2)  :
-        DL_EntityData(TYPE_DL_ENTITY_ARC) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_ARC) {
 
         cx = acx;
         cy = acy;
@@ -414,12 +409,12 @@ struct DXFLIB_EXPORT DL_ArcData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_CircleData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_CircleData(double acx, double acy, double acz,
                   double aRadius) :
-        DL_EntityData(TYPE_DL_ENTITY_CIRCLE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_CIRCLE) {
 
         cx = acx;
         cy = acy;
@@ -445,11 +440,11 @@ struct DXFLIB_EXPORT DL_CircleData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_PolylineData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_PolylineData(int pNumber, int pMVerteces, int pNVerteces, int pFlags, double pElevation = 0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_POLYLINE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_POLYLINE) {
         number = pNumber;
         m = pMVerteces;
         n = pNVerteces;
@@ -480,12 +475,12 @@ struct DXFLIB_EXPORT DL_PolylineData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_VertexData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_VertexData(double px=0.0, double py=0.0, double pz=0.0,
                   double pBulge=0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_VERTEX) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_VERTEX) {
         x = px;
         y = py;
         z = pz;
@@ -499,20 +494,20 @@ struct DXFLIB_EXPORT DL_VertexData : public DL_EntityData {
     /*! Z Coordinate of the vertex. */
     double z;
     /*! Bulge of vertex.
-     * (The tangent of 1/4 of the arc angle or 0 for lines) */
+   * (The tangent of 1/4 of the arc angle or 0 for lines) */
     double bulge;
 };
 
 
 struct DXFLIB_EXPORT DL_CompositePolylineData : public DL_EntityData {
     DL_CompositePolylineData(int pNumber, int pFlags, double pElevation = 0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_CompositePolyline),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_CompositePolyline),
         number(pNumber),
         flags(pFlags),
         elevation(pElevation) {}
 
     unsigned int number; // 顶点数量
-    int flags;           // 多段线标志
+  int flags;           // 多段线标志 1为闭合
     double elevation;    // 高程
     std::vector<DL_VertexData> vertices; // 所有顶点
 };
@@ -523,7 +518,7 @@ struct DXFLIB_EXPORT DL_CompositePolylineData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_TraceData : public DL_EntityData {
     DL_TraceData() :
-        DL_EntityData(TYPE_DL_ENTITY_TRACE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_TRACE) {
         thickness = 0.0;
         for (int i=0; i<4; i++) {
             x[i] = 0.0;
@@ -533,15 +528,15 @@ struct DXFLIB_EXPORT DL_TraceData : public DL_EntityData {
     }
     
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_TraceData(double sx1, double sy1, double sz1,
                 double sx2, double sy2, double sz2,
                 double sx3, double sy3, double sz3,
                 double sx4, double sy4, double sz4,
                 double sthickness=0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_TRACE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_TRACE) {
 
         thickness = sthickness;
 
@@ -592,21 +587,20 @@ typedef DL_TraceData DL_3dFaceData;
  */
 struct DXFLIB_EXPORT DL_SplineData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_SplineData(int degree,
                   int nKnots,
                   int nControl,
                   int nFit,
                   int flags) :
-        DL_EntityData(TYPE_DL_ENTITY_SPLINE),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_SPLINE),
         degree(degree),
         nKnots(nKnots),
         nControl(nControl),
         nFit(nFit),
-        flags(flags) {
-    }
+    flags(flags) {}
 
     /*! Degree of the spline curve. */
     unsigned int degree;
@@ -639,9 +633,9 @@ struct DXFLIB_EXPORT DL_SplineData : public DL_EntityData {
 struct DXFLIB_EXPORT DL_KnotData {
     DL_KnotData() {}
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_KnotData(double pk) {
         k = pk;
     }
@@ -657,9 +651,9 @@ struct DXFLIB_EXPORT DL_KnotData {
  */
 struct DXFLIB_EXPORT DL_ControlPointData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_ControlPointData(double px, double py, double pz, double weight) {
         x = px;
         y = py;
@@ -684,9 +678,9 @@ struct DXFLIB_EXPORT DL_ControlPointData {
  */
 struct DXFLIB_EXPORT DL_FitPointData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_FitPointData(double x, double y, double z) : x(x), y(y), z(z) {}
 
     /*! X coordinate of the fit point. */
@@ -700,7 +694,7 @@ struct DXFLIB_EXPORT DL_FitPointData {
 
 struct DXFLIB_EXPORT DL_CompositeSplineData : public DL_EntityData {
     DL_CompositeSplineData(int degree, int nKnots, int nControl, int nFit, int flags)
-        : DL_EntityData(TYPE_DL_ENTITY_CompositeSpline), degree(degree), nKnots(nKnots),
+    : DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_CompositeSpline), degree(degree), nKnots(nKnots),
           nControl(nControl), nFit(nFit), flags(flags) {}
 
     unsigned int degree; // 样条曲线阶数
@@ -719,14 +713,14 @@ struct DXFLIB_EXPORT DL_CompositeSplineData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_EllipseData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_EllipseData(double cx, double cy, double cz,
                    double mx, double my, double mz,
                    double ratio,
                    double angle1, double angle2) :
-        DL_EntityData(TYPE_DL_ENTITY_ELLIPSE),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_ELLIPSE),
         cx(cx),
         cy(cy),
         cz(cz),
@@ -735,8 +729,7 @@ struct DXFLIB_EXPORT DL_EllipseData : public DL_EntityData {
         mz(mz),
         ratio(ratio),
         angle1(angle1),
-        angle2(angle2) {
-    }
+    angle2(angle2) {}
 
     /*! X Coordinate of center point. */
     double cx;
@@ -767,23 +760,22 @@ struct DXFLIB_EXPORT DL_EllipseData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_InsertData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_InsertData(const std::string& name,
                   double ipx, double ipy, double ipz,
                   double sx, double sy, double sz,
                   double angle,
                   int cols, int rows,
                   double colSp, double rowSp)  :
-        DL_EntityData(TYPE_DL_ENTITY_INSERT),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_INSERT),
         name(name),
         ipx(ipx), ipy(ipy), ipz(ipz),
         sx(sx), sy(sy), sz(sz),
         angle(angle),
         cols(cols), rows(rows),
-        colSp(colSp), rowSp(rowSp) {
-    }
+    colSp(colSp), rowSp(rowSp) {}
 
     /*! Name of the referred block. */
     std::string name;
@@ -818,9 +810,9 @@ struct DXFLIB_EXPORT DL_InsertData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_MTextData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_MTextData(double ipx, double ipy, double ipz,
                  double dirx, double diry, double dirz,
                  double height, double width,
@@ -831,7 +823,7 @@ struct DXFLIB_EXPORT DL_MTextData : public DL_EntityData {
                  const std::string& text,
                  const std::string& style,
                  double angle)  :
-        DL_EntityData(TYPE_DL_ENTITY_MTEXT),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_MTEXT),
         ipx(ipx), ipy(ipy), ipz(ipz),
         dirx(dirx), diry(diry), dirz(dirz),
         height(height), width(width),
@@ -862,28 +854,28 @@ struct DXFLIB_EXPORT DL_MTextData : public DL_EntityData {
     /*! Width of the text box. */
     double width;
     /**
-     * Attachment point.
-     *
-     * 1 = Top left, 2 = Top center, 3 = Top right,
-     * 4 = Middle left, 5 = Middle center, 6 = Middle right,
-     * 7 = Bottom left, 8 = Bottom center, 9 = Bottom right
-     */
+   * Attachment point.
+   *
+   * 1 = Top left, 2 = Top center, 3 = Top right,
+   * 4 = Middle left, 5 = Middle center, 6 = Middle right,
+   * 7 = Bottom left, 8 = Bottom center, 9 = Bottom right
+   */
     int attachmentPoint;
     /**
-     * Drawing direction.
-     *
-     * 1 = left to right, 3 = top to bottom, 5 = by style
-     */
+   * Drawing direction.
+   *
+   * 1 = left to right, 3 = top to bottom, 5 = by style
+   */
     int drawingDirection;
     /**
-     * Line spacing style.
-     *
-     * 1 = at least, 2 = exact
-     */
+   * Line spacing style.
+   *
+   * 1 = at least, 2 = exact
+   */
     int lineSpacingStyle;
     /**
-     * Line spacing factor. 0.25 .. 4.0  
-     */
+   * Line spacing factor. 0.25 .. 4.0
+   */
     double lineSpacingFactor;
     /*! Text string. */
     std::string text;
@@ -900,9 +892,9 @@ struct DXFLIB_EXPORT DL_MTextData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_TextData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_TextData(double ipx, double ipy, double ipz,
                 double apx, double apy, double apz,
                 double height, double xScaleFactor,
@@ -912,7 +904,7 @@ struct DXFLIB_EXPORT DL_TextData : public DL_EntityData {
                 const std::string& text,
                 const std::string& style,
                 double angle) :
-        DL_EntityData(TYPE_DL_ENTITY_TEXT),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_TEXT),
         ipx(ipx), ipy(ipy), ipz(ipz),
         apx(apx), apy(apy), apz(apz),
         height(height), xScaleFactor(xScaleFactor),
@@ -921,8 +913,7 @@ struct DXFLIB_EXPORT DL_TextData : public DL_EntityData {
         vJustification(vJustification),
         text(text),
         style(style),
-        angle(angle) {
-    }
+    angle(angle) {}
 
     /*! X Coordinate of insertion point. */
     double ipx;
@@ -945,18 +936,18 @@ struct DXFLIB_EXPORT DL_TextData : public DL_EntityData {
     /*! 0 = default, 2 = Backwards, 4 = Upside down */
     int textGenerationFlags;
     /**
-     * Horizontal justification.
-     * 
-     * 0 = Left (default), 1 = Center, 2 = Right,
-     * 3 = Aligned, 4 = Middle, 5 = Fit
-     * For 3, 4, 5 the vertical alignment has to be 0.
-     */
+   * Horizontal justification.
+   *
+   * 0 = Left (default), 1 = Center, 2 = Right,
+   * 3 = Aligned, 4 = Middle, 5 = Fit
+   * For 3, 4, 5 the vertical alignment has to be 0.
+   */
     int hJustification;
     /**
-     * Vertical justification. 
-     *
-     * 0 = Baseline (default), 1 = Bottom, 2 = Middle, 3= Top
-     */
+   * Vertical justification.
+   *
+   * 0 = Baseline (default), 1 = Bottom, 2 = Middle, 3= Top
+   */
     int vJustification;
     /*! Text string. */
     std::string text;
@@ -1004,26 +995,26 @@ struct DXFLIB_EXPORT DL_ArcAlignedTextData {
     /*! End angle (radians) */
     double endAngle;
     /*! Reversed character order:
-     * false: normal
-     * true: reversed
-     */
+   * false: normal
+   * true: reversed
+   */
     bool reversedCharacterOrder;
     /*! Direction
-     * 1: outward from center
-     * 2: inward from center
-     */
+   * 1: outward from center
+   * 2: inward from center
+   */
     int direction;
     /*! Alignment:
-     * 1: fit
-     * 2: left
-     * 3: right
-     * 4: center
-     */
+   * 1: fit
+   * 2: left
+   * 3: right
+   * 4: center
+   */
     int alignment;
     /*! Side
-     * 1: convex
-     * 2: concave
-     */
+   * 1: convex
+   * 2: concave
+   */
     int side;
     /*! Bold flag */
     bool bold;
@@ -1036,9 +1027,9 @@ struct DXFLIB_EXPORT DL_ArcAlignedTextData {
     /*! Pitch and family value. Windows pitch and character family identifier. */
     int pitch;
     /*! Font type:
-     * false: TTF
-     * true: SHX
-     */
+   * false: TTF
+   * true: SHX
+   */
     bool shxFont;
     /*! Wizard flag */
     bool wizard;
@@ -1052,13 +1043,13 @@ struct DXFLIB_EXPORT DL_ArcAlignedTextData {
 struct DXFLIB_EXPORT DL_AttributeData : public DL_TextData {
     DL_AttributeData(const DL_TextData& tData, const std::string& tag) :
         DL_TextData(tData), tag(tag) {
-        entityType = TYPE_DL_ENTITY_ATTRIBUTE;
+    entityType = DL_EntityType::TYPE_DL_ENTITY_ATTRIBUTE;
     }
 
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_AttributeData(double ipx, double ipy, double ipz,
                 double apx, double apy, double apz,
                 double height, double xScaleFactor,
@@ -1080,7 +1071,7 @@ struct DXFLIB_EXPORT DL_AttributeData : public DL_TextData {
         angle),
         tag(tag) {
 
-        entityType = TYPE_DL_ENTITY_ATTRIBUTE;
+    entityType = DL_EntityType::TYPE_DL_ENTITY_ATTRIBUTE;
     }
 
     /*! Tag. */
@@ -1093,9 +1084,9 @@ struct DXFLIB_EXPORT DL_AttributeData : public DL_TextData {
  */
 struct DXFLIB_EXPORT DL_DimensionData : public DL_EntityData {
     /**
-    * Constructor.
-    * Parameters: see member variables.
-    */
+  * Constructor.
+  * Parameters: see member variables.
+  */
     DL_DimensionData(double dpx, double dpy, double dpz,
                      double mpx, double mpy, double mpz,
                      int type,
@@ -1107,7 +1098,7 @@ struct DXFLIB_EXPORT DL_DimensionData : public DL_EntityData {
                      double angle,
                      double linearFactor = 1.0,
                      double dimScale = 1.0)  :
-        DL_EntityData(TYPE_DL_ENTITY_DIMENSION),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_DIMENSION),
         dpx(dpx), dpy(dpy), dpz(dpz),
         mpx(mpx), mpy(mpy), mpz(mpz),
         type(type),
@@ -1135,65 +1126,65 @@ struct DXFLIB_EXPORT DL_DimensionData : public DL_EntityData {
     /*! Z Coordinate of middle point of the text. */
     double mpz;
     /**
-     * Dimension type.
-     *
-     * 0   Rotated, horizontal, or vertical            
-     * 1   Aligned                                     
-     * 2   Angular                                     
-     * 3   Diametric                                    
-     * 4   Radius                                      
-     * 5   Angular 3-point                             
-     * 6   Ordinate                                    
-     * 64  Ordinate type. This is a bit value (bit 7)  
-     *     used only with integer value 6. If set,     
-     *     ordinate is X-type; if not set, ordinate is 
-     *     Y-type                                      
-     * 128 This is a bit value (bit 8) added to the    
-     *     other group 70 values if the dimension text 
-     *     has been positioned at a user-defined       
-     *    location rather than at the default location
-     */
+   * Dimension type.
+   *
+   * 0   Rotated, horizontal, or vertical
+   * 1   Aligned
+   * 2   Angular
+   * 3   Diametric
+   * 4   Radius
+   * 5   Angular 3-point
+   * 6   Ordinate
+   * 64  Ordinate type. This is a bit value (bit 7)
+   *     used only with integer value 6. If set,
+   *     ordinate is X-type; if not set, ordinate is
+   *     Y-type
+   * 128 This is a bit value (bit 8) added to the
+   *     other group 70 values if the dimension text
+   *     has been positioned at a user-defined
+   *    location rather than at the default location
+   */
     int type;
     /**
-     * Attachment point.
-     *
-     * 1 = Top left, 2 = Top center, 3 = Top right,
-     * 4 = Middle left, 5 = Middle center, 6 = Middle right,
-     * 7 = Bottom left, 8 = Bottom center, 9 = Bottom right,
-     */
+   * Attachment point.
+   *
+   * 1 = Top left, 2 = Top center, 3 = Top right,
+   * 4 = Middle left, 5 = Middle center, 6 = Middle right,
+   * 7 = Bottom left, 8 = Bottom center, 9 = Bottom right,
+   */
     int attachmentPoint;
     /**
-     * Line spacing style.
-     *
-     * 1 = at least, 2 = exact
-     */
+   * Line spacing style.
+   *
+   * 1 = at least, 2 = exact
+   */
     int lineSpacingStyle;
     /**
-     * Line spacing factor. 0.25 .. 4.0  
-     */
+   * Line spacing factor. 0.25 .. 4.0
+   */
     double lineSpacingFactor;
     /**
-     * Text string. 
-     *
-     * Text string entered explicitly by user or null
-     * or "<>" for the actual measurement or " " (one blank space).
-     * for supressing the text.
-     */
+   * Text string.
+   *
+   * Text string entered explicitly by user or null
+   * or "<>" for the actual measurement or " " (one blank space).
+   * for supressing the text.
+   */
     std::string text;
     /*! Dimension style (font name). */
     std::string style;
     /**
-     * Rotation angle of dimension text away from
-     * default orientation.
-     */
+   * Rotation angle of dimension text away from
+   * default orientation.
+   */
     double angle;
     /**
-     * Linear factor style override.
-     */
+   * Linear factor style override.
+   */
     double linearFactor;
     /**
-     * Dimension scale (dimscale) style override.
-     */
+   * Dimension scale (dimscale) style override.
+   */
     double dimScale;
 };
 
@@ -1204,9 +1195,9 @@ struct DXFLIB_EXPORT DL_DimensionData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_DimAlignedData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimAlignedData(double depx1, double depy1, double depz1,
                       double depx2, double depy2, double depz2) {
 
@@ -1241,9 +1232,9 @@ struct DXFLIB_EXPORT DL_DimAlignedData {
  */
 struct DXFLIB_EXPORT DL_DimLinearData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimLinearData(double ddpx1, double ddpy1, double ddpz1,
                      double ddpx2, double ddpy2, double ddpz2,
                      double dAngle, double dOblique) {
@@ -1287,9 +1278,9 @@ struct DXFLIB_EXPORT DL_DimLinearData {
  */
 struct DXFLIB_EXPORT DL_DimRadialData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimRadialData(double ddpx, double ddpy, double ddpz, double dleader) {
         dpx = ddpx;
         dpy = ddpy;
@@ -1316,9 +1307,9 @@ struct DXFLIB_EXPORT DL_DimRadialData {
  */
 struct DXFLIB_EXPORT DL_DimDiametricData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimDiametricData(double ddpx, double ddpy, double ddpz, double dleader) {
         dpx = ddpx;
         dpy = ddpy;
@@ -1345,9 +1336,9 @@ struct DXFLIB_EXPORT DL_DimDiametricData {
  */
 struct DXFLIB_EXPORT DL_DimAngularData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimAngularData(double ddpx1, double ddpy1, double ddpz1,
                       double ddpx2, double ddpy2, double ddpz2,
                       double ddpx3, double ddpy3, double ddpz3,
@@ -1405,9 +1396,9 @@ struct DXFLIB_EXPORT DL_DimAngularData {
  */
 struct DXFLIB_EXPORT DL_DimAngular3PData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimAngular3PData(double ddpx1, double ddpy1, double ddpz1,
                         double ddpx2, double ddpy2, double ddpz2,
                         double ddpx3, double ddpy3, double ddpz3) {
@@ -1454,9 +1445,9 @@ struct DXFLIB_EXPORT DL_DimAngular3PData {
  */
 struct DXFLIB_EXPORT DL_DimOrdinateData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_DimOrdinateData(double ddpx1, double ddpy1, double ddpz1,
                       double ddpx2, double ddpy2, double ddpz2,
                       bool dxtype) {
@@ -1497,9 +1488,9 @@ struct DXFLIB_EXPORT DL_DimOrdinateData {
  */
 struct DXFLIB_EXPORT DL_LeaderData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_LeaderData(int lArrowHeadFlag,
                   int lLeaderPathType,
                   int lLeaderCreationFlag,
@@ -1508,7 +1499,7 @@ struct DXFLIB_EXPORT DL_LeaderData : public DL_EntityData {
                   double lTextAnnotationHeight,
                   double lTextAnnotationWidth,
                   int lNumber) :
-        DL_EntityData(TYPE_DL_ENTITY_LEADER) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_LEADER) {
 
         arrowHeadFlag = lArrowHeadFlag;
         leaderPathType = lLeaderPathType;
@@ -1545,9 +1536,9 @@ struct DXFLIB_EXPORT DL_LeaderData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_LeaderVertexData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_LeaderVertexData(double px=0.0, double py=0.0, double pz=0.0) {
         x = px;
         y = py;
@@ -1569,15 +1560,15 @@ struct DXFLIB_EXPORT DL_LeaderVertexData {
  */
 struct DXFLIB_EXPORT DL_HatchData : public DL_EntityData {
     /**
-     * Default constructor.
-     */
+   * Default constructor.
+   */
     DL_HatchData() :
-        DL_EntityData(TYPE_DL_ENTITY_HATCH) {}
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_HATCH) {}
 
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_HatchData(int numLoops,
                  bool solid,
                  double scale,
@@ -1585,7 +1576,7 @@ struct DXFLIB_EXPORT DL_HatchData : public DL_EntityData {
                  const std::string& pattern,
                  double originX = 0.0,
                  double originY = 0.0) :
-        DL_EntityData(TYPE_DL_ENTITY_HATCH),
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_HATCH),
         numLoops(numLoops),
         solid(solid),
         scale(scale),
@@ -1618,13 +1609,13 @@ struct DXFLIB_EXPORT DL_HatchData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_HatchLoopData {
     /**
-     * Default constructor.
-     */
+   * Default constructor.
+   */
     DL_HatchLoopData() {}
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_HatchLoopData(int hNumEdges) {
         numEdges = hNumEdges;
     }
@@ -1640,15 +1631,14 @@ struct DXFLIB_EXPORT DL_HatchLoopData {
  */
 struct DXFLIB_EXPORT DL_HatchEdgeData {
     /**
-     * Default constructor.
-     */
-    DL_HatchEdgeData() : defined(false), x1(0.0), y1(0.0), x2(0.0), y2(0.0) {
-    }
+   * Default constructor.
+   */
+  DL_HatchEdgeData() : defined(false), x1(0.0), y1(0.0), x2(0.0), y2(0.0) {}
 
     /**
-     * Constructor for a line edge.
-     * Parameters: see member variables.
-     */
+   * Constructor for a line edge.
+   * Parameters: see member variables.
+   */
     DL_HatchEdgeData(double x1, double y1,
                      double x2, double y2) :
         defined(true),
@@ -1656,13 +1646,12 @@ struct DXFLIB_EXPORT DL_HatchEdgeData {
         x1(x1),
         y1(y1),
         x2(x2),
-        y2(y2) {
-    }
+    y2(y2) {}
 
     /**
-     * Constructor for an arc edge.
-     * Parameters: see member variables.
-     */
+   * Constructor for an arc edge.
+   * Parameters: see member variables.
+   */
     DL_HatchEdgeData(double cx, double cy,
                      double radius,
                      double angle1, double angle2,
@@ -1674,13 +1663,12 @@ struct DXFLIB_EXPORT DL_HatchEdgeData {
         radius(radius),
         angle1(angle1),
         angle2(angle2),
-        ccw(ccw) {
-    }
+    ccw(ccw) {}
 
     /**
-     * Constructor for an ellipse arc edge.
-     * Parameters: see member variables.
-     */
+   * Constructor for an ellipse arc edge.
+   * Parameters: see member variables.
+   */
     DL_HatchEdgeData(double cx, double cy,
                      double mx, double my,
                      double ratio,
@@ -1695,13 +1683,12 @@ struct DXFLIB_EXPORT DL_HatchEdgeData {
         ccw(ccw),
         mx(mx),
         my(my),
-        ratio(ratio) {
-    }
+    ratio(ratio) {}
 
     /**
-     * Constructor for a spline edge.
-     * Parameters: see member variables.
-     */
+   * Constructor for a spline edge.
+   * Parameters: see member variables.
+   */
     DL_HatchEdgeData(unsigned int degree,
                      bool rational,
                      bool periodic,
@@ -1731,17 +1718,16 @@ struct DXFLIB_EXPORT DL_HatchEdgeData {
         startTangentX(startTangentX),
         startTangentY(startTangentY),
         endTangentX(endTangentX),
-        endTangentY(endTangentY) {
-    }
+    endTangentY(endTangentY) {}
 
     /**
-     * Set to true if this edge is fully defined.
-     */
+   * Set to true if this edge is fully defined.
+   */
     bool defined;
 
     /**
-     * Edge type. 1=line, 2=arc, 3=elliptic arc, 4=spline.
-     */
+   * Edge type. 1=line, 2=arc, 3=elliptic arc, 4=spline.
+   */
     int type;
 
     // line edges:
@@ -1810,16 +1796,16 @@ struct DXFLIB_EXPORT DL_HatchEdgeData {
  */
 struct DXFLIB_EXPORT DL_ImageData : public DL_EntityData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_ImageData(const std::string& iref,
                   double iipx, double iipy, double iipz,
                   double iux, double iuy, double iuz,
                   double ivx, double ivy, double ivz,
                   int iwidth, int iheight,
                   int ibrightness, int icontrast, int ifade) :
-        DL_EntityData(TYPE_DL_ENTITY_IMAGE) {
+    DL_EntityData(DL_EntityType::TYPE_DL_ENTITY_IMAGE) {
         ref = iref;
         ipx = iipx;
         ipy = iipy;
@@ -1837,8 +1823,8 @@ struct DXFLIB_EXPORT DL_ImageData : public DL_EntityData {
         fade = ifade;
     }
 
-    /*! Reference to the image file 
-        (unique, used to refer to the image def object). */
+  /*! Reference to the image file
+      (unique, used to refer to the image def object). */
     std::string ref;
     /*! X Coordinate of insertion point. */
     double ipx;
@@ -1877,17 +1863,17 @@ struct DXFLIB_EXPORT DL_ImageData : public DL_EntityData {
  */
 struct DXFLIB_EXPORT DL_ImageDefData {
     /**
-     * Constructor.
-     * Parameters: see member variables.
-     */
+   * Constructor.
+   * Parameters: see member variables.
+   */
     DL_ImageDefData(const std::string& iref,
                  const std::string& ifile) {
         ref = iref;
         file = ifile;
     }
 
-    /*! Reference to the image file 
-        (unique, used to refer to the image def object). */
+  /*! Reference to the image file
+      (unique, used to refer to the image def object). */
     std::string ref;
 
     /*! Image file */
