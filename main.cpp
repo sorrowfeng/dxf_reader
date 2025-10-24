@@ -10,7 +10,7 @@ int main(int argc, char *argv[])
         std::cout << "--------------------" << std::endl;
         std::cout << "Entity Type:" << (int)entity->type() << std::endl;
         std::cout << "Layer:" << entity->attribute.getLayer() << std::endl;
-        std::cout << "Linetype:" << entity->attribute.getLinetype() << std::endl;
+        std::cout << "Line Type:" << entity->attribute.getLinetype() << std::endl;
         std::cout << "Color:" << entity->attribute.getColor() << std::endl;
         std::cout << "Width:" << entity->attribute.getWidth() << std::endl;
 
